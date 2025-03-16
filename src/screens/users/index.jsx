@@ -1,11 +1,22 @@
-import { getUsers } from "@/actions/userActions";
+"use client"
+
+import { deleteUser } from "@/actions/userActions";
 import { DeleteIcon, EditIcon } from "@/components/icons";
 import Button from "@/components/ui/Button";
+import DeleteConfirmationModal from "@/components/ui/DeleteConfirmationModal";
 import Link from "next/link";
+import { useState } from "react";
 
 
-export default async function UsersScreen() {
-    const users = await getUsers();
+export default function UsersScreen({users}) {
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); 
+    const [selectedId, setSelectedId] = useState()
+
+    const handleDelete = async () => {
+        await deleteUser(selectedId)
+        setIsDeleteModalOpen(false)
+        setSelectedId(null)
+    }
     
     return (
         <div>
@@ -45,7 +56,13 @@ export default async function UsersScreen() {
                                         >
                                             <EditIcon/>
                                         </Link>
-                                        <Button className="bg-transparent p-0 px-2 border-none text-red-500">
+                                        <Button 
+                                            className="bg-transparent p-0 px-2 border-none text-red-500"
+                                            onClick={() => {
+                                                setIsDeleteModalOpen(true)
+                                                setSelectedId(user.id)
+                                            }}
+                                            >
                                             <DeleteIcon/>
                                         </Button>
                                     </td>
@@ -54,6 +71,16 @@ export default async function UsersScreen() {
                         }
                     </tbody>
                 </table>
+
+                {
+                    isDeleteModalOpen && 
+                    <DeleteConfirmationModal
+                        setIsOpen = {setIsDeleteModalOpen}
+                        onCancel={()=>setIsDeleteModalOpen(false)}
+                        handleConfirm={handleDelete}
+                    />
+                }
+                
             </div>
         </div>
     )

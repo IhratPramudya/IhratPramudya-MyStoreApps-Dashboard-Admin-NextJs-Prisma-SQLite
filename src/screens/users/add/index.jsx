@@ -13,6 +13,13 @@ export default async function AddUser({ searchParams }) {
         <div>
             <h1 className="text-3xl font-semibold"> Add User</h1>
 
+       
+
+            <form 
+                className="grid gap-x-6 gap-y-10 mt-10 grid-cols-2 px-2"
+                action={createUser}>
+
+
             {
                 errorMessage && (
                     <div className="col-span-2 border border-red-500 rounded-xl px-5 py-3 bg-red-50 w-fit">
@@ -22,11 +29,6 @@ export default async function AddUser({ searchParams }) {
                     </div>
                 )        
             }
-
-            <form 
-                className="grid gap-x-6 gap-y-10 mt-10 grid-cols-2 px-2"
-                action={createUser}
-                >
                 <div className="grid gap-2">
                     <Label required={true} className="font-bold" >Username</Label>
                     <Input placeholder={"Enter Username"} name="userName" />

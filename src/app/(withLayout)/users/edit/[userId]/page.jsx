@@ -1,9 +1,9 @@
 import EditUser from "@/screens/users/edit";
 
-const EditUserPage = async ({params}) => {
+const EditUserPage = async () => {
     return (
         <>
-            <EditUser params={params} />
+            <EditUser/>
         </>
     )
 }

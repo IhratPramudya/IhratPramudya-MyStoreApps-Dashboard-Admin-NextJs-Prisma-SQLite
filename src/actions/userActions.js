@@ -47,6 +47,7 @@ export const getUsers = async () => {
 }
 
 export const getUniqueUser = async (userId) => {
+    "use server"
     const user = await db.adminUser.findUnique({
         where: {
             id: userId
@@ -57,6 +58,7 @@ export const getUniqueUser = async (userId) => {
 }
 
 export const updateUser = async (formData, userId) => {
+    "use server"
     const data = {
         userName: formData.get("userName"),
         userType: formData.get("userType"),
@@ -64,6 +66,32 @@ export const updateUser = async (formData, userId) => {
         confirmPassword: formData.get("confirmPassword")
     };
 
-    const salt = bcrypt.genSaltSync(5);
-    const hashedPassword = await bcrypt.hash(formData.get("password"), salt)
+    if(data.password) {
+        const salt = bcrypt.genSaltSync(5);
+        const hashedPassword = await bcrypt.hash(formData.get("password"), salt)
+    }
+
+    await db.adminUser.update({
+        where: {
+            id: parseInt(userId)
+        },
+        data: {
+            userType: data.userType,
+            userName: data.userName,
+            ...(data.password && {hashedPassword})
+        }
+    })
+
+    revalidatePath('/', 'page')
+    redirect("/users")
+}
+
+export async function deleteUser(userId) {
+    await db.adminUser.delete({
+        where: {
+            id: userId
+        }
+    });
+
+    revalidatePath("/users", "page");
 }

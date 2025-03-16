@@ -1,32 +1,62 @@
-import { getUniqueUser } from "@/actions/userActions";
+"use client"
+import { getUniqueUser, updateUser } from "@/actions/userActions";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Label from "@/components/ui/Label";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
-const EditUser = async ({params}) => {
-    const { userId } = await params;
-    const id = parseInt(userId);
+const EditUser = () => {
+    const params = useParams(); // Ambil params dari URL
 
-    const userData = await getUniqueUser(id);
+    const [userData, setUserData] = useState({
+        userName: "",
+        userType: "",
+        password: "",
+        confirmPassword: ""
+    })
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getUniqueUser(parseInt(params.userId));
+                setUserData({
+                    userName: data.userName || "",
+                    userType: data.userType || "",
+                    password: "",
+                    confirmPassword: "",
+                });
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        }
 
-    return (
-         <div>
-                   <h1 className="text-3xl font-semibold"> Edit User</h1>
-       
-                   {
-                    //    errorMessage && (
-                    //        <div className="col-span-2 border border-red-500 rounded-xl px-5 py-3 bg-red-50 w-fit">
-                    //            <span
-                    //                className="text-red-500 col-span-2 text-md my-0"
-                    //            >{errorMessage}</span>
-                    //        </div>
-                    //    )        
-                   }
-       
-                   <form 
-                       className="grid gap-x-6 gap-y-10 mt-10 grid-cols-2 px-2"
+        if (params.userId) {
+            fetchData();
+        }
+    }, [params.userId])
+
+    const handleSubmit = async (formData) => {
+       await updateUser(formData, parseInt(params.userId))
+    }
+
+        return (
+            <div>
+                    <h1 className="text-3xl font-semibold"> Edit User</h1>
+                    <form 
+                        className="grid gap-x-6 gap-y-10 mt-10 grid-cols-2 px-2"
+                        action={handleSubmit}
                        >
+
+                        {
+                            //    errorMessage && (
+                            //        <div className="col-span-2 border border-red-500 rounded-xl px-5 py-3 bg-red-50 w-fit">
+                            //            <span
+                            //                className="text-red-500 col-span-2 text-md my-0"
+                            //            >{errorMessage}</span>
+                            //        </div>
+                            //    )        
+                        }
                        <div className="grid gap-2">
                            <Label required={true} className="font-bold" >Username</Label>
                            <Input 

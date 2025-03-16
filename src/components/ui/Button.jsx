@@ -5,6 +5,7 @@ export default function Button({className, onClick, children, ...props}) {
         <div>
             <button 
             className={cn("custom-submit-btn ", className)}
+            {...props}
             onClick={onClick}
             >
                 {children}

@@ -1,9 +1,13 @@
+import { getUsers } from "@/actions/userActions";
 import UsersScreen from "@/screens/users";
 
-export default function Users() {
+export default async function UsersPage() {
+
+    const users = await getUsers();
+
     return (
         <>
-            <UsersScreen />
+            <UsersScreen users={users} />
         </>
     )
 }
