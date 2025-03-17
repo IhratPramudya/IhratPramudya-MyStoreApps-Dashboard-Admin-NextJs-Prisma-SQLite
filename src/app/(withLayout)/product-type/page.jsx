@@ -1,9 +1,11 @@
 import ProductTypes from "@/screens/product-type"
+import { getProductTypes } from "@/actions/productTypesAction";
 
-const ProductTypeManagement = () => {
+const ProductTypeManagement = async () => {
+    const productTypes = await getProductTypes()
     return (
         <div>
-            <ProductTypes/>
+            <ProductTypes productTypes={productTypes} />
         </div>
     )
 }
