@@ -3,11 +3,12 @@ import { getUniqueUser, updateUser } from "@/actions/userActions";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import Label from "@/components/ui/Label";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const EditUser = () => {
     const params = useParams(); // Ambil params dari URL
+    const { errorMessage } = useSearchParams()
 
     const [userData, setUserData] = useState({
         userName: "",

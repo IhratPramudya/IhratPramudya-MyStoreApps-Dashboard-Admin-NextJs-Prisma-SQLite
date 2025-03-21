@@ -21,7 +21,7 @@ const ProductTypes = ({productTypes}) => {
     return (
         <div>
         <div className="flex justify-between">
-                <h1 className="font-semibold text-2xl p-2">User Management</h1>
+                <h1 className="font-semibold text-2xl p-2">Product Management</h1>
                 <button>
                     <Link
                         href='/product-type/add'
@@ -39,7 +39,7 @@ const ProductTypes = ({productTypes}) => {
                 <thead className="border-y-2 border-gray-400">
                     <tr>
                         <th className=""> Sr. No.</th>
-                        <th className="">User Name</th>
+                        <th className="">Product Name</th>
                         <th className="">Action</th>
                     </tr>
                 </thead>

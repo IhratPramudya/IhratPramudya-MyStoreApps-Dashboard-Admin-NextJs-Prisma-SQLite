@@ -27,7 +27,7 @@ export default function Sidebar() {
         {
             id: 4,
             text: "Products",
-            url: "/product",
+            url: "/products",
             icon: <ShoppingBagIcon/>
         }
     ]
