@@ -1,10 +1,13 @@
+import { getProducts } from "@/actions/ProductActions";
 import Products from "@/screens/products";
 
 
-const ProductsManagement = () => {
+const ProductsManagement = async () => {
+    const products = await getProducts();
+
     return (
         <>
-            <Products />
+            <Products products={products} />
         </>
     )
 }

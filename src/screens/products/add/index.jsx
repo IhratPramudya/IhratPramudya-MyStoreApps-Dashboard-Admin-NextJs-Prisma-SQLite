@@ -1,4 +1,3 @@
-"use server"
 import Button from "@/components/ui/Button";
 import CustomFileInput from "@/components/ui/CustomFileInput";
 import Input from "@/components/ui/Input";
@@ -7,7 +6,7 @@ import Switch from "@/components/ui/Switch";
 import { createProduct } from "@/actions/ProductActions";
 
 
-export default async function AddProducts  ({searchParams = "", productTypes}) {
+export default async function AddProducts  ({searchParams, productTypes}) {
 
     const {errorMessage} = await searchParams;
        
@@ -34,12 +33,12 @@ export default async function AddProducts  ({searchParams = "", productTypes}) {
                 
                     <div className="grid gap-2">
                         <Label required={true} >Product Name</Label>
-                        <Input placeholder={"Enter Username"} name="userName" />
+                        <Input placeholder={"Enter Username"} name="name" />
                     </div>
     
                     <div className="grid gap-2">
                         <Label required={true} >Product Type</Label>
-                        <select className="custom-input appearance-none bg-white cursor-pointer" name="userType">
+                        <select className="custom-input appearance-none bg-white cursor-pointer" name="productTypeId">
                             {
                                 productTypes?.map((productType) => (
                                     <option value={productType.id} key={productType.id}>
@@ -67,7 +66,7 @@ export default async function AddProducts  ({searchParams = "", productTypes}) {
 
                     <div className="grid gap-2">
                         <Label required={true} >Stock of Small Size</Label>
-                        <Input placeholder={"Enter Stock of Small Size"} name="name" type="number" />
+                        <Input placeholder={"Enter Stock of Small Size"} name="smallSize" type="number" />
                     </div>
 
                     <div className="grid gap-2">
