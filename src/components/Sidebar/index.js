@@ -1,10 +1,15 @@
+"use client"
+
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/jsx-key */
 import Link from "next/link";
 import Image from "next/image";
-import { HomeIcon, ShoppingBagIcon, SwatchIcon, UsersIcon } from "../icons";
+import { HomeIcon, LogoutIcons, ShoppingBagIcon, SwatchIcon, UsersIcon } from "../icons";
+import Button from "../ui/Button";
+import { logoutUser } from "@/actions/authAction";
 
-export default function Sidebar() {
+export default function Sidebar({userData}) {
+
     const menuItems = [
         {
             id: 1,
@@ -66,7 +71,13 @@ export default function Sidebar() {
                         radius="sm"
                         className="border-gray-600 rounded-full border-2"
                     />
-                    <div className="m-auto text-lg"> John Doe </div>
+                    <div className="m-auto text-lg">{userData.userName}</div>
+                    <Button 
+                        className="bg-transparent text-black"
+                        onClick={() =>  logoutUser()}
+                        >
+                        <LogoutIcons className="h-7 w-7" />
+                    </Button>
                 </div>
             </div>
         </div>

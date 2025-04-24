@@ -3,10 +3,11 @@ import { db } from "@/lib/db"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation";
 import bcrypt from 'bcrypt';
+import { jwtTokenVerification } from "./authAction";
 
 
 export const createUser = async (formData) => {
-    "use server"
+    await jwtTokenVerification()
 
     const salt = bcrypt.genSaltSync(5);
     const hashedPassword = await bcrypt.hash(formData.get("password"), salt);
@@ -42,12 +43,15 @@ export const createUser = async (formData) => {
 
 
 export const getUsers = async () => {
+    await jwtTokenVerification()
+
     const users = await db.adminUser.findMany();
     return users;
 }
 
 export const getUniqueUser = async (userId) => {
-    "use server"
+    await jwtTokenVerification()
+
     const user = await db.adminUser.findUnique({
         where: {
             id: userId
@@ -58,7 +62,8 @@ export const getUniqueUser = async (userId) => {
 }
 
 export const updateUser = async (formData, userId) => {
-    "use server"
+    await jwtTokenVerification
+
     const data = {
         userName: formData.get("userName"),
         userType: formData.get("userType"),
@@ -87,6 +92,8 @@ export const updateUser = async (formData, userId) => {
 }
 
 export async function deleteUser(userId) {
+    await jwtTokenVerification()
+
     await db.adminUser.delete({
         where: {
             id: userId

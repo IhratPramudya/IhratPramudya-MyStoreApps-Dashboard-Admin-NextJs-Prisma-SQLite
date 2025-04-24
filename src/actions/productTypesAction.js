@@ -3,8 +3,11 @@
 import { db } from "@/lib/db"
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { jwtTokenVerification } from "./authAction";
 
 export async function createProductType(formData) {
+    await jwtTokenVerification()
+
     const data = {
         name: formData.get("name")
     }
@@ -33,11 +36,15 @@ export async function createProductType(formData) {
 
 
 export async function  getProductTypes() {
+    await jwtTokenVerification()
+
     const productTypes = await db.productType.findMany();
     return productTypes;
 }
 
 export async function getUniqueProductType(productTypeId) {
+    await jwtTokenVerification()
+
     const productType = await db.productType.findUnique({
         where: {
             id: parseInt(productTypeId)
@@ -49,6 +56,8 @@ export async function getUniqueProductType(productTypeId) {
 
 
 export async function updateProductType(formData, productTypeId) {
+    await jwtTokenVerification()
+
     const data ={
         name: formData.get("name")
     };
@@ -67,6 +76,8 @@ export async function updateProductType(formData, productTypeId) {
 }
 
 export async function deleteProductType(productTypeId) {
+    await jwtTokenVerification()
+
     await db.productType.delete({
         where: {
             id: parseInt(productTypeId)
