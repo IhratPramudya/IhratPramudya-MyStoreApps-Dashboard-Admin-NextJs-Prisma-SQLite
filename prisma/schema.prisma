@@ -50,4 +50,27 @@ model BuyerMaster {
   address      String?
   city         String?
   createdAt    DateTime @default(now())
+  sales SalesMaster[]
+}
+
+model SalesMaster {
+  id String @id @default(uuid())
+  bId Int
+  SODateTime DateTime
+  grandTotalPrice Float
+  paymentMode String
+  paymentDetails String?
+  buyer BuyerMaster @relation(fields: [bId], references: [id])
+  salesTransaction SalesTransaction[]
+}
+
+model SalesTransaction{
+  id String @id @default(uuid())
+  SMOId String
+  productId Int
+  productName String
+  unitPrice Float
+  qtyPurchased Int
+  total Float
+  salesMaster SalesMaster @relation(fields: [SMOId], references: [id])
 }
