@@ -34,6 +34,12 @@ export default function Sidebar({userData}) {
             text: "Products",
             url: "/products",
             icon: <ShoppingBagIcon/>
+        },
+        {
+            id: 5,
+            text: "Buyers",
+            url: "/buyers",
+            icon: <UsersIcon/>
         }
     ]
 

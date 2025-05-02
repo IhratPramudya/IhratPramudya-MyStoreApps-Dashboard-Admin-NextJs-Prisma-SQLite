@@ -1,10 +1,10 @@
+import { getDashboardData } from "@/actions/dashboardActions";
+import Dashboard from "@/screens/dashboard";
 
-export default function Home() {
+export default async function Home() {
+  const dashboardData = await getDashboardData();
+  
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center">
-      <main>
-          <button className="btn bg-green-500"> Click Me</button>
-      </main>
-    </div>
+      <Dashboard dashboardData={dashboardData} />
   );
 }
