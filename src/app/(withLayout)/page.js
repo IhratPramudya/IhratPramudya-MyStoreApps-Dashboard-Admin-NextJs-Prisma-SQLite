@@ -1,10 +1,11 @@
-import { getDashboardData } from "@/actions/dashboardActions";
+// import { getDashboardData } from "@/actions/dashboardActions";
 import Dashboard from "@/screens/dashboard";
 
 export default async function Home() {
-  const dashboardData = await getDashboardData();
+  // const dashboardData = await getDashboardData();
   
   return (
-      <Dashboard dashboardData={dashboardData} />
+      // <Dashboard dashboardData={dashboardData} />
+      <h1>Ini halaman Dashboard</h1>
   );
 }

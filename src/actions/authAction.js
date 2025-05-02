@@ -53,6 +53,7 @@ export async function jwtTokenVerification() {
 
 export async function getUserData() {
     const decodedToken = await jwtTokenVerification();
+    console.log(decodedToken)
     const userData = await db.adminUser.findUnique({
         where: {
             id: decodedToken.id
